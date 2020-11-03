@@ -1,25 +1,43 @@
-plugins {
-	id 'org.springframework.boot' version '2.3.4.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
-	id 'war'
+buildscript {
+    ext {
+		dependencyManagementPluginVersion = '1.0.10.RELEASE'
+		springBootVersion = '2.3.4.RELEASE'
+		propdepsPluginVersion = '0.0.9.RELEASE'
+
+        commonsLang3Version = '3.0'
+		geoip2Version = '2.3.1'
+        lombokVersion = '1.18.2'
+
+		logstashLogbackEncoderVersion = '6.2'
+    }
+	repositories {
+        mavenCentral()
+		maven { url 'https://repo.spring.io/plugins-release' }
+		maven { url 'https://plugins.gradle.org/m2/' }
+	}
+	dependencies {
+		classpath "io.spring.gradle:propdeps-plugin:${propdepsPluginVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+	}
 }
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.ddnsfree.bidetworld.bidetworldwebserver'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+	implementation "com.maxmind.geoip2:geoip2:${geoip2Version}"
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<body>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoid2luc3Rvbm1vb24iLCJhIjoiY2s2Z2RyMXB2MXFnbDNsczBoNHRqdTk2MSJ9.9oFIF9f8xhmlm7E_XppNRg';
+      // 名古屋駅周辺の地図を表示する
+var map = new mapboxgl.Map({
+  container: 'map', // container id
+  style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+  center: [136.882763, 35.1707925], // starting position [lng, lat]
+  zoom: 14 // starting zoom
+});
+
+// 名古屋駅の場所にピンを立てる
+var marker = new mapboxgl.Marker()
+  .setLngLat(map.getCenter())
+  .addTo(map);
+
+// Hello World ダイアログボックスを表示する
+var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+var popupOffsets = {
+ 'top': [0, 0],
+ 'top-left': [0,0],
+ 'top-right': [0,0],
+ 'bottom': [0, -markerHeight],
+ 'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+ 'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+ 'left': [markerRadius, (markerHeight - markerRadius) * -1],
+ 'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+};
+var popup = new mapboxgl.Popup({offset: popupOffsets, className: 'my-class'})
+  .setLngLat(map.getCenter())
+  .setHTML("<h1>Hello World!</h1>")
+  .setMaxWidth("300px")
+  .addTo(map);
+    </script>
+</body>
+
+</html> 
