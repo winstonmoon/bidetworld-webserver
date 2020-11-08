@@ -1,5 +1,7 @@
 package com.ddnsfree.bidetworld.bidetworldwebserver.bidetworldwebserver.common;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,4 +26,8 @@ public class MapHelper {
         }
         return ip;
     }
-} 
+
+    public static String createBidetInfoPin(Map<Double, Double> bidetInfoMap) {
+        return "";
+    }
+}
