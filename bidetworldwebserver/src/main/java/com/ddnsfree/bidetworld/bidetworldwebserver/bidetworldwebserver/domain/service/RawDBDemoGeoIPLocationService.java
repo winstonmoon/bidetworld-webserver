@@ -17,23 +17,25 @@ import org.springframework.util.ResourceUtils;
 public class RawDBDemoGeoIPLocationService {
   private DatabaseReader dbReader;
 
-  public RawDBDemoGeoIPLocationService() throws IOException {
-    //File database = new File("your-mmdb-location");
-    // TODO fix
+  public GeoIP getCityLatLong(GeoIP geoIP, String ip) throws IOException, GeoIp2Exception {
     File cityDbFile = ResourceUtils.getFile("classpath:GeoLite2-City.mmdb");
     dbReader = new DatabaseReader.Builder(cityDbFile).build();
-  }
-
-  public GeoIP getLocation(String ip) throws IOException, GeoIp2Exception {
-    GeoIP geoIP = new GeoIP();
     InetAddress ipAddress = InetAddress.getByName(ip);
     CityResponse cityResponse = dbReader.city(ipAddress);
-    CountryResponse countryResponse = dbReader.country(ipAddress);
 
-    geoIP.setCountry(countryResponse.getCountry().toString());
-    geoIP.setCity(cityResponse.getCity().toString());
-    geoIP.setLatitude(cityResponse.getLocation().getLatitude().toString());
-    geoIP.setLongitude(cityResponse.getLocation().getLongitude().toString());
+    geoIP.setCity(cityResponse.getCity());
+    geoIP.setLatitude(cityResponse.getLocation().getLatitude());
+    geoIP.setLongitude(cityResponse.getLocation().getLongitude());
     return geoIP;
   }
-} 
+
+  public GeoIP getCountry(GeoIP geoIP, String ip) throws IOException, GeoIp2Exception {
+    File countryDbFile = ResourceUtils.getFile("classpath:GeoLite2-Country.mmdb");
+    dbReader = new DatabaseReader.Builder(countryDbFile).build();
+    InetAddress ipAddress = InetAddress.getByName(ip);
+    CountryResponse countryResponse = dbReader.country(ipAddress);
+
+    geoIP.setCountry(countryResponse.getCountry());
+    return geoIP;
+  }
+}

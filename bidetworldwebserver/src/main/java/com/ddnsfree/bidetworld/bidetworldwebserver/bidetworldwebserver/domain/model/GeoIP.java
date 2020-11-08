@@ -1,41 +1,44 @@
 package com.ddnsfree.bidetworld.bidetworldwebserver.bidetworldwebserver.domain.model;
 
-public class GeoIP {
-    private String country;
-    private String city;
-    private String latitude;
-    private String longitude;
+import com.maxmind.geoip2.record.City;
+import com.maxmind.geoip2.record.Country;
 
-    public String getCountry() {
+public class GeoIP {
+    private Country country;
+    private City city;
+    private Double latitude;
+    private Double longitude;
+
+    public Country getCountry() {
         return this.country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
-    public String getCity() {
+    public City getCity() {
         return this.city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return this.latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return this.longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-} 
+}
